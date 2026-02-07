@@ -1,0 +1,33 @@
+# xai-cropguard — curated minimal dependencies (created 2026-02-03)
+# These are the project's direct dependencies. A full backup of the previous freeze is saved as `requirements-full.txt`.
+
+# AI / ML
+tensorflow==2.15.0
+# Optional (CPU-only fallback): uncomment or run `pip install tensorflow-cpu==2.15.0`
+tf-keras-vis==0.8.5
+numpy==1.26.4
+pandas==3.0.0
+scikit-learn==1.3.0
+
+# Image processing
+# Note: pip installed `opencv-python-headless` in the env. For GUI support, use conda-forge opencv:
+# `conda install -n xai-py311 -c conda-forge opencv`
+opencv-python-headless==4.11.0.86
+pillow==10.0.0
+albumentations==1.3.1
+matplotlib==3.7.2
+tqdm==4.67.2
+
+# Web / API
+flask==3.0.0
+flask-cors==4.0.0
+python-telegram-bot==20.7
+
+# Dataset
+datasets==4.5.0
+
+# Extras (kept for runtime compatibility)
+tensorflow-estimator==2.15.0
+tensorflow-io-gcs-filesystem==0.37.1
+
+# End of file — keep this list minimal and add packages to the top-level dependencies only.

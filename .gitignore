@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+
+# Data (too large for git)
+data/raw/*
+data/processed/*
+data/augmented/*
+!data/*/.gitkeep
+
+# Models
+models/checkpoints/*
+models/final/*
+!models/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Secrets
+*.env
+config.ini
+kaggle.json

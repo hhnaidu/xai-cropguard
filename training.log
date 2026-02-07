@@ -1,0 +1,140 @@
+Starting YOLOv8 training...
+Dataset: 2,447 training + 432 validation images
+Classes: 23 crop diseases
+Duration: ~2000+ hours on CPU (~100 epochs)
+------------------------------------------------------------
+Ultralytics 8.4.12 🚀 Python-3.11.14 torch-2.10.0+cpu CPU (11th Gen Intel Core i3-1115G4 @ 3.00GHz)
+[34m[1mengine/trainer: [0magnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=16, bgr=0.0, box=7.5, cache=False, cfg=None, classes=None, close_mosaic=10, cls=0.5, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=data/processed/yolo/data.yaml, degrees=0.0, deterministic=True, device=cpu, dfl=1.5, dnn=False, dropout=0.0, dynamic=False, embed=None, end2end=None, epochs=100, erasing=0.4, exist_ok=False, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, half=False, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, int8=False, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolov8s.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=cropguard_yolo_v1, nbs=64, nms=False, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=20, perspective=0.0, plots=True, pose=12.0, pretrained=True, profile=False, project=runs/detect, rect=False, resume=False, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=/home/harsh/xai-cropguard/runs/detect/runs/detect/cropguard_yolo_v1, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=0, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=botsort.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.4.2 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "/home/harsh/xai-cropguard/scripts/train_yolo.py", line 20, in <module>
+    results = model.train(
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/model.py", line 769, in train
+    self.trainer = (trainer or self._smart_load("trainer"))(overrides=args, _callbacks=self.callbacks)
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/models/yolo/detect/train.py", line 63, in __init__
+    super().__init__(cfg, overrides, _callbacks)
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 186, in __init__
+    self.data = self.get_dataset()
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 660, in get_dataset
+    data = check_det_dataset(self.args.data)
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/data/utils.py", line 475, in check_det_dataset
+    check_font("Arial.ttf" if is_ascii(data["names"]) else "Arial.Unicode.ttf")  # download fonts
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/utils/__init__.py", line 501, in decorated
+    return f(*args, **kwargs)
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/utils/checks.py", line 321, in check_font
+    from matplotlib import font_manager  # scope for faster 'import ultralytics'
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/__init__.py", line 129, in <module>
+    from . import _api, _version, cbook, _docstring, rcsetup
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/rcsetup.py", line 27, in <module>
+    from matplotlib.colors import Colormap, is_color_like
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/colors.py", line 56, in <module>
+    from matplotlib import _api, _cm, cbook, scale
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/scale.py", line 22, in <module>
+    from matplotlib.ticker import (
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/ticker.py", line 138, in <module>
+    from matplotlib import transforms as mtransforms
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/transforms.py", line 49, in <module>
+    from matplotlib._path import (
+AttributeError: _ARRAY_API not found
+Traceback (most recent call last):
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 660, in get_dataset
+    data = check_det_dataset(self.args.data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/data/utils.py", line 475, in check_det_dataset
+    check_font("Arial.ttf" if is_ascii(data["names"]) else "Arial.Unicode.ttf")  # download fonts
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/utils/__init__.py", line 501, in decorated
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/utils/checks.py", line 321, in check_font
+    from matplotlib import font_manager  # scope for faster 'import ultralytics'
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/__init__.py", line 129, in <module>
+    from . import _api, _version, cbook, _docstring, rcsetup
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/rcsetup.py", line 27, in <module>
+    from matplotlib.colors import Colormap, is_color_like
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/colors.py", line 56, in <module>
+    from matplotlib import _api, _cm, cbook, scale
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/scale.py", line 22, in <module>
+    from matplotlib.ticker import (
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/ticker.py", line 138, in <module>
+    from matplotlib import transforms as mtransforms
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/matplotlib/transforms.py", line 49, in <module>
+    from matplotlib._path import (
+ImportError: numpy.core.multiarray failed to import
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harsh/xai-cropguard/scripts/train_yolo.py", line 20, in <module>
+    results = model.train(
+              ^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/model.py", line 769, in train
+    self.trainer = (trainer or self._smart_load("trainer"))(overrides=args, _callbacks=self.callbacks)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/models/yolo/detect/train.py", line 63, in __init__
+    super().__init__(cfg, overrides, _callbacks)
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 186, in __init__
+    self.data = self.get_dataset()
+                ^^^^^^^^^^^^^^^^^^
+  File "/home/harsh/miniconda3/envs/xai-py311/lib/python3.11/site-packages/ultralytics/engine/trainer.py", line 664, in get_dataset
+    raise RuntimeError(emojis(f"Dataset '{clean_url(self.args.data)}' error ❌ {e}")) from e
+RuntimeError: Dataset 'data/processed/yolo/data.yaml' error ❌ numpy.core.multiarray failed to import
+Starting YOLOv8 training...
+Dataset: 2,447 training + 432 validation images
+Classes: 23 crop diseases
+Duration: ~2000+ hours on CPU (~100 epochs)
+------------------------------------------------------------
+Ultralytics 8.4.12 🚀 Python-3.11.14 torch-2.10.0+cpu CPU (11th Gen Intel Core i3-1115G4 @ 3.00GHz)
+[34m[1mengine/trainer: [0magnostic_nms=False, amp=True, angle=1.0, augment=False, auto_augment=randaugment, batch=16, bgr=0.0, box=7.5, cache=False, cfg=None, classes=None, close_mosaic=10, cls=0.5, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=data/processed/yolo/data.yaml, degrees=0.0, deterministic=True, device=cpu, dfl=1.5, dnn=False, dropout=0.0, dynamic=False, embed=None, end2end=None, epochs=100, erasing=0.4, exist_ok=False, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, half=False, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, int8=False, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolov8s.pt, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=cropguard_yolo_v12, nbs=64, nms=False, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=20, perspective=0.0, plots=True, pose=12.0, pretrained=True, profile=False, project=runs/detect, rect=False, resume=False, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=/home/harsh/xai-cropguard/runs/detect/runs/detect/cropguard_yolo_v12, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=0, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=botsort.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+[KDownloading https://ultralytics.com/assets/Arial.ttf to '/home/harsh/.config/Ultralytics/Arial.ttf': 100% ━━━━━━━━━━━━ 755.1KB 9.4MB/s 0.1s
+Overriding model.yaml nc=80 with nc=23
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       928  ultralytics.nn.modules.conv.Conv             [3, 32, 3, 2]                 
+  1                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]                
+  2                  -1  1     29056  ultralytics.nn.modules.block.C2f             [64, 64, 1, True]             
+  3                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]               
+  4                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]           
+  5                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  6                  -1  2    788480  ultralytics.nn.modules.block.C2f             [256, 256, 2, True]           
+  7                  -1  1   1180672  ultralytics.nn.modules.conv.Conv             [256, 512, 3, 2]              
+  8                  -1  1   1838080  ultralytics.nn.modules.block.C2f             [512, 512, 1, True]           
+  9                  -1  1    656896  ultralytics.nn.modules.block.SPPF            [512, 512, 5]                 
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 12                  -1  1    591360  ultralytics.nn.modules.block.C2f             [768, 256, 1]                 
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 15                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]                 
+ 16                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 18                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]                 
+ 19                  -1  1    590336  ultralytics.nn.modules.conv.Conv             [256, 256, 3, 2]              
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 21                  -1  1   1969152  ultralytics.nn.modules.block.C2f             [768, 512, 1]                 
+ 22        [15, 18, 21]  1   2124949  ultralytics.nn.modules.head.Detect           [23, 16, None, [128, 256, 512]]
+Model summary: 130 layers, 11,144,501 parameters, 11,144,485 gradients, 28.7 GFLOPs
+
+Transferred 349/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mtrain: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 323.9±79.8 MB/s, size: 1522.2 KB)
+[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 241 images, 0 backgrounds, 0 corrupt: 10% ━─────────── 241/2447 721.8it/s 0.1s<3.1s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 492 images, 0 backgrounds, 0 corrupt: 20% ━━────────── 492/2447 1.3Kit/s 0.2s<1.6s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 747 images, 0 backgrounds, 0 corrupt: 31% ━━━╸──────── 747/2447 1.6Kit/s 0.3s<1.0s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 1009 images, 0 backgrounds, 0 corrupt: 41% ━━━━╸─────── 1009/2447 1.9Kit/s 0.4s<0.7s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 1275 images, 0 backgrounds, 0 corrupt: 52% ━━━━━━────── 1275/2447 2.1Kit/s 0.5s<0.5s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 1542 images, 0 backgrounds, 0 corrupt: 63% ━━━━━━━╸──── 1542/2447 2.3Kit/s 0.6s<0.4s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 1813 images, 0 backgrounds, 0 corrupt: 74% ━━━━━━━━╸─── 1813/2447 2.4Kit/s 0.7s<0.3s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 2018 images, 0 backgrounds, 1 corrupt: 83% ━━━━━━━━━╸── 2019/2447 2.3Kit/s 0.8s<0.2s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 2275 images, 0 backgrounds, 1 corrupt: 93% ━━━━━━━━━━━─ 2276/2447 2.4Kit/s 0.9s<0.1s[K[34m[1mtrain: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/train/labels... 2446 images, 0 backgrounds, 1 corrupt: 100% ━━━━━━━━━━━━ 2447/2447 2.5Kit/s 1.0s
+[34m[1mtrain: [0m/home/harsh/xai-cropguard/data/processed/yolo/train/images/id_t9ueug.jpg: ignoring corrupt image/label: cannot identify image file '/home/harsh/xai-cropguard/data/processed/yolo/train/images/id_t9ueug.jpg'
+[34m[1mtrain: [0mNew cache created: /home/harsh/xai-cropguard/data/processed/yolo/train/labels.cache
+[34m[1malbumentations: [0mImageCompression.__init__() got an unexpected keyword argument 'quality_range'
+[34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 411.4±16.0 MB/s, size: 1891.1 KB)
+[K[34m[1mval: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/val/labels... 265 images, 0 backgrounds, 0 corrupt: 61% ━━━━━━━───── 265/432 793.6it/s 0.1s<0.2s[K[34m[1mval: [0mScanning /home/harsh/xai-cropguard/data/processed/yolo/val/labels... 432 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 432/432 2.7Kit/s 0.2s
+[34m[1mval: [0mNew cache created: /home/harsh/xai-cropguard/data/processed/yolo/val/labels.cache
+Plotting labels to /home/harsh/xai-cropguard/runs/detect/runs/detect/cropguard_yolo_v12/labels.jpg... 
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.00037, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Image sizes 640 train, 640 val
