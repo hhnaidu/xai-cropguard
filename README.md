@@ -1,5 +1,7 @@
 # xai-cropguard
 
+Explainable AI System for Crop Disease Detection
+
 See `REPORT.md` for environment setup, installation logs, and ongoing project notes.
 
 ## Recommended setup (Conda, tested)
