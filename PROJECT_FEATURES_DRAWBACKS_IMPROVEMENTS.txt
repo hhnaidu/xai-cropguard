@@ -1,0 +1,152 @@
+XAI CropGuard: Features, Drawbacks, and Improvements
+====================================================
+
+Project Scope
+-------------
+XAI CropGuard is a crop disease detection and explainability system built around YOLOv8 and EigenCAM. It supports single-image analysis, phone-camera capture, and rover-style continuous scanning workflows.
+
+Current Features
+----------------
+1. Disease Detection (YOLOv8)
+- Uses a trained YOLOv8 model (`trial/cropguard_best_model/best.pt`) for plant disease detection.
+- Supports class filtering logic to prioritize disease classes over healthy classes.
+- Applies confidence and NMS thresholds for box filtering.
+
+2. Explainability (EigenCAM / CAM stack)
+- Generates CAM heatmaps to explain model focus areas.
+- Supports CAM layer selection and optional auto-layer search.
+- Includes edge-artifact suppression to reduce border noise in CAM maps.
+
+3. Severity Estimation
+- Computes severity score and severity level from CAM activation and detection confidence.
+- Produces infected-region masks and contour overlays.
+
+4. Recommendation Engine
+- Maps predicted disease class + severity to treatment recommendations.
+- Includes fallback recommendation logic for unknown class names.
+
+5. Visual Outputs
+- Produces multiple outputs per inference:
+  - Final farmer-facing panel (`*_final.jpg`)
+  - CAM-only visualization (`*_cam_only.jpg`)
+  - CAM + boxes view (`*_cam_boxes.jpg`)
+  - Raw grayscale CAM array (`*_grayscale_cam.npy`)
+  - Analysis panel (`*_analysis_panel.jpg`)
+
+6. Input Modes
+- Image mode via CLI (`--source image --image <path>`).
+- Phone stream mode via CLI (`--source phone --phone-url ...`).
+- Camera abstraction in `scripts/camera.py` for:
+  - PiCamera2 (`"picamera"`)
+  - HTTP stream (`http://IP:PORT/video`)
+  - USB webcam source index (`0`, `1`, ...)
+
+7. Rover Mode
+- Continuous scanning pipeline in `scripts/rover.py`.
+- Loads YOLO once for fast trigger detection.
+- Uses cooldown to avoid repeated triggers on the same plant.
+- Logs detections to CSV (`results/rover_log.csv`).
+
+8. API Endpoints (Flask)
+- `/capture` for one-shot capture + analysis.
+- `/rover_log` for reading logged rover detections.
+- `/health` for service health checks.
+- Locking prevents overlapping scans.
+
+9. Runtime and Edge Considerations
+- Low-memory mode support for constrained devices.
+- Raspberry Pi profile options are included in CLI workflows.
+- Temporary capture usage (`/tmp`) helps reduce SD-card write wear.
+
+10. Result Retention
+- Auto-cleanup keeps only the latest JPG outputs in `results/` (default cap: 25 files).
+
+
+Current Drawbacks
+-----------------
+1. Tight Coupling in Pipeline
+- `scripts/pipeline.py` still handles many responsibilities (inference, explainability, severity, visualization, cleanup, CLI flow), making maintenance harder.
+
+2. Inconsistent Return Contract
+- Pipeline can return a dict on success or `(None, {"error": ...})` on failure. This requires careful handling by each caller.
+
+3. Model Lifecycle Not Fully Centralized
+- Rover mode can inject a preloaded model, but other flows still create model instances internally.
+- No unified model manager/cache layer yet.
+
+4. Import Path Fragility
+- Current module imports required path adjustments for compatibility.
+- Packaging/import structure could be cleaner to avoid path hacks.
+
+5. Hardcoded Paths and Defaults
+- Several scripts include absolute paths and fixed constants.
+- This reduces portability across systems/users.
+
+6. Limited Automated Testing
+- No formal unit/integration test suite for camera inputs, inference behavior, error handling, or API routes.
+
+7. Confidence Gate Tradeoff
+- Strict gating (e.g., confidence >= 0.55) reduces false positives but increases no-detection outcomes in difficult lighting or off-angle frames.
+
+8. Rover Cleanup Pattern Mismatch
+- Rover cleanup currently targets `result_*.jpg`, while pipeline outputs are named by image stem. This can leave stale files unless naming is aligned.
+
+9. Error Telemetry is Basic
+- Logs are functional but not structured for advanced monitoring (latency, failure categories, class-wise trends).
+
+10. Deployment Packaging Incomplete
+- No finalized systemd service files, container setup, or robust production deployment templates in repo.
+
+
+Recommended Improvements
+------------------------
+Priority 1 (Stability & Architecture)
+1. Standardize pipeline return type
+- Use one consistent schema for success/error (e.g., dict with `ok: true/false`, `error`, and payload fields).
+
+2. Introduce a model manager
+- Centralize model load/reuse to avoid repeated initialization and improve latency.
+
+3. Refactor pipeline modules
+- Split into focused modules:
+  - detector
+  - xai engine
+  - severity
+  - renderer
+  - post-processing
+
+4. Fix output retention consistency
+- Unify filename patterns and cleanup logic between rover and pipeline outputs.
+
+Priority 2 (Reliability & Ops)
+5. Add test suite
+- Unit tests for filtering/severity/recommendation logic.
+- Integration tests for CLI/API happy path and error path.
+
+6. Improve observability
+- Add structured JSON logs with timestamps, latency, confidence, class, and failure reason.
+
+7. Add config file support
+- Move hardcoded constants to YAML/ENV settings for device-specific tuning.
+
+Priority 3 (Field Performance)
+8. Add adaptive confidence strategy
+- Use context-aware thresholds (lighting score, motion blur, leaf occupancy) instead of static threshold only.
+
+9. Add leaf-presence precheck
+- A lightweight leaf detector/segmenter can reduce invalid scans before disease inference.
+
+10. Improve phone/stream robustness
+- Add retry/backoff and stream health checks in capture routines.
+
+Priority 4 (Deployment & UX)
+11. Production deployment assets
+- Add systemd service files, restart policy, and startup scripts.
+
+12. Dashboard improvements
+- Add latest scan preview, confidence warnings, and actionable troubleshooting prompts.
+
+
+Conclusion
+----------
+The project is now functionally strong for prototype and pilot usage: detection, explainability, severity scoring, recommendations, rover scanning, and API endpoints are all in place. The main next step is engineering hardening: consistent contracts, cleaner architecture boundaries, stronger testing, and deployment-grade operational tooling.

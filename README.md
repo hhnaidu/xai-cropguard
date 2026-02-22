@@ -2,7 +2,18 @@
 
 Explainable AI System for Crop Disease Detection
 
-See `REPORT.md` for environment setup, installation logs, and ongoing project notes.
+## Model Download
+
+`best.pt` is not included in the repo (too large for GitHub).
+
+Download from release:
+[version-2 assets](https://github.com/hhnaidu/xai-cropguard/releases/tag/version-2)
+
+Place the model at:
+`trial/cropguard_best_model/best.pt`
+
+See `README_PROGRESS.md` for the live detailed project progress tracker.
+See `REPORT.md` for environment setup and installation logs.
 
 ## Recommended setup (Conda, tested)
 

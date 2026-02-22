@@ -26,3 +26,19 @@ models/final/*
 *.env
 config.ini
 kaggle.json
+
+# Runtime / generated
+runs/
+results/
+results_*/
+*.log
+*.pid
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Large model artifacts (download separately)
+trial/cropguard_best_model/*.pt
+trial/cropguard_best_model.zip
+trial/cropguard_best_model/best/
+trial/cropguard_best_model/last/
