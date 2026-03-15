@@ -15,6 +15,20 @@ Place the model at:
 See `README_PROGRESS.md` for the live detailed project progress tracker.
 See `REPORT.md` for environment setup and installation logs.
 
+## Model Registry (2026-03-15)
+
+- Centralized model management via `models/manifest.json`
+- YOLO class labels source of truth: `models/yolo_labels.txt` (23 classes)
+- Unified model loader: `scripts/model_loader.py`
+- Primary model: `models_archive/cropguard_best_model.zip`
+- Keras models: disabled pending label verification
+
+Test the registry:
+
+```bash
+python scripts/model_loader.py
+```
+
 ## Recommended setup (Conda, tested)
 
 1. Install Miniconda (if not already installed):

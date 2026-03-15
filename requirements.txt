@@ -5,7 +5,7 @@
 tensorflow==2.15.0
 # Optional (CPU-only fallback): uncomment or run `pip install tensorflow-cpu==2.15.0`
 tf-keras-vis==0.8.5
-ultralytics==8.4.14
+ultralytics>=8.0.0
 torch==2.10.0
 torchvision==0.25.0
 grad-cam==1.5.5

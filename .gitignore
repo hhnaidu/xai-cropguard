@@ -42,3 +42,6 @@ trial/cropguard_best_model/*.pt
 trial/cropguard_best_model.zip
 trial/cropguard_best_model/best/
 trial/cropguard_best_model/last/
+
+venv_xai/
+venv*/

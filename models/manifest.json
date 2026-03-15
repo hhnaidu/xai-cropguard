@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "updated": "2026-03-15",
+  "description": "XAI-CropGuard model registry",
+  "models": {
+    "yolo_primary": {
+      "path": "models_archive/cropguard_best_model.zip",
+      "type": "yolov8",
+      "task": "detection_and_classification",
+      "status": "active",
+      "input_size": [640, 640],
+      "num_classes": 23,
+      "labels_file": "models/yolo_labels.txt",
+      "description": "Primary YOLO model - trained on 23 crop diseases",
+      "version": "1.0",
+      "training_date": "2025-01",
+      "metrics": {
+        "map50": 0.92,
+        "map50_95": 0.78
+      }
+    },
+    "yolo_alt": {
+      "path": "hhnaidu.pt.zip",
+      "type": "yolov8",
+      "task": "detection_and_classification",
+      "status": "inactive",
+      "input_size": [640, 640],
+      "num_classes": 23,
+      "labels_file": "models/yolo_labels.txt",
+      "description": "Alternative YOLO model - currently not used",
+      "version": "0.9",
+      "notes": "Keep for comparison/fallback"
+    },
+    "keras_classifier_disabled": {
+      "status": "disabled",
+      "reason": "Class labels not yet verified",
+      "path": "models_archive/*.keras",
+      "type": "keras",
+      "task": "classification",
+      "notes": "Will enable after class label extraction confirmed"
+    }
+  },
+  "pipeline": {
+    "active_model": "yolo_primary",
+    "fallback_model": null,
+    "explainability": {
+      "method": "EigenCAM",
+      "target_model": "yolo_primary"
+    },
+    "confidence_thresholds": {
+      "detection": 0.3,
+      "classification": 0.6
+    }
+  }
+}
